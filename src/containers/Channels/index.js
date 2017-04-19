@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FilterList from '../../components/FilterList';
 import Channel from '../../components/Channel';
 import { getToken, getChannelsSortedByName } from '../../store/selectors';
 import { fetchChannels } from '../../store/actions';
@@ -33,9 +34,23 @@ export class Channels extends React.Component {
     const { channels } = this.props;
     return (
       <div>
-        {channels.map((c, idx) =>
-          <Channel key={idx} name={c.name} videoUris={c.videoUris} />
-        )}
+        <FilterList
+          items={channels.map((c, idx) => ({
+            key: idx,
+            name: c.name,
+            videoUris: c.videoUris
+          }))}
+          filterFn={(items, filterValue) =>
+            items.filter(item =>
+              item.name.toUpperCase().includes(filterValue.toUpperCase())
+            )
+          }
+        >
+          {items => items.map(item => {
+            const { key, ...props } = item;
+            return <Channel key={key} {...props} />;
+          })}
+        </FilterList>
       </div>
     );
   };
