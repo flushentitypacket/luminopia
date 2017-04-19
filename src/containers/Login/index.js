@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchJwt } from '../store/actions';
+import { fetchJwt } from '../../store/actions';
 
 export class Login extends React.Component {
   static propTypes = {
