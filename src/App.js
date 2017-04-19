@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Login from './containers/Login';
 import logo from './logo.svg';
 import './App.css';
 
@@ -14,6 +15,10 @@ export class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+
+        <div>
+          <Login />
+        </div>
       </div>
     );
   }
@@ -23,4 +28,7 @@ const mapStateToProps = (state) => ({
   message: 'Welcome to React',
 })
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
