@@ -20,6 +20,6 @@ export default class Channel extends React.Component {
       <div>
         <p>{name} <strong>{this.videoCount()}</strong></p>
       </div>
-    )
+    );
   };
 }

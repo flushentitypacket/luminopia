@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Channel from '../../components/Channel';
-import { getToken, getChannels } from '../../store/selectors';
+import { getToken, getChannelsSortedByName } from '../../store/selectors';
 import { fetchChannels } from '../../store/actions';
 
 export class Channels extends React.Component {
@@ -43,7 +43,7 @@ export class Channels extends React.Component {
 
 const mapStateToProps = (state) => ({
   token: getToken(state),
-  channels: getChannels(state),
+  channels: getChannelsSortedByName(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
