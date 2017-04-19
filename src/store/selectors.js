@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 
 export const getToken = state => state.login.token;
-export const getChannels = state => state.channels;
+export const getLoginErrorMessage = state => state.login.errorMessage;
+export const getChannels = state => state.channels.items;
 export const getChannelsSortedByName = createSelector(
   getChannels,
   channels => channels.sort((a, b) => {
@@ -16,3 +17,4 @@ export const getChannelsSortedByName = createSelector(
     return 0;
   }),
 )
+export const getChannelsErrorMessage = state => state.channels.errorMessage;

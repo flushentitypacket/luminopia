@@ -1,20 +1,43 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { setToken, addChannel } from './actions';
+import {
+  setToken,
+  setFetchJwtError,
+  resetFetchJwtError,
+  addChannel,
+  setFetchChannelsError,
+  resetFetchChannelsError,
+} from './actions';
 import types from './types';
 import { generateJwt, getRecommendedChannels } from '../lib/api';
 
 export function* fetchJwt({ payload }) {
-  const response = yield call(generateJwt, payload);
-  const { token } = response;
-  yield put(setToken(token));
+  const { response, error } = yield call(generateJwt, payload);
+  if (response) {
+    const { token } = response;
+    yield [
+      put(resetFetchJwtError()),
+      put(setToken(token)),
+    ];
+  } else {
+    const { message } = error;
+    yield put(setFetchJwtError(message));
+  }
 }
 
 export function* fetchChannels({ payload }) {
-  const response = yield call(getRecommendedChannels, payload);
-  const channels = Object.keys(response)
-    .map(k => response[k])
-    .map(c => ({ name: c.name, videoUris: c.video_uris }));
-  yield channels.map(c => put(addChannel(c)));
+  const { response, error } = yield call(getRecommendedChannels, payload);
+  if (response) {
+    const channels = Object.keys(response)
+      .map(k => response[k])
+      .map(c => ({ name: c.name, videoUris: c.video_uris }));
+    yield [
+      put(resetFetchChannelsError()),
+      ...channels.map(c => put(addChannel(c))),
+    ];
+  } else {
+    const { message } = error;
+    yield put(setFetchChannelsError(message));
+  }
 }
 
 function* sagas() {

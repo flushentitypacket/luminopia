@@ -3,17 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FilterList from '../../components/FilterList';
 import Channel from '../../components/Channel';
-import { getToken, getChannelsSortedByName } from '../../store/selectors';
+import {
+  getToken,
+  getChannelsSortedByName,
+  getChannelsErrorMessage
+} from '../../store/selectors';
 import { fetchChannels } from '../../store/actions';
 
 export class Channels extends React.Component {
   static propTypes = {
     token: PropTypes.string,
     fetchChannels: PropTypes.func,
+    errorMessage: PropTypes.string,
   };
 
   static defaultProps = {
+    token: null,
     fetchChannels: () => {},
+    errorMessage: null,
   };
 
   componentDidMount = () => {
@@ -31,7 +38,7 @@ export class Channels extends React.Component {
   };
 
   render = () => {
-    const { channels } = this.props;
+    const { channels, errorMessage } = this.props;
     return (
       <div>
         <FilterList
@@ -46,6 +53,7 @@ export class Channels extends React.Component {
             return <Channel key={key} {...props} />;
           }}
         </FilterList>
+        {errorMessage && <p>{errorMessage}</p>}
       </div>
     );
   };
@@ -54,6 +62,7 @@ export class Channels extends React.Component {
 const mapStateToProps = (state) => ({
   token: getToken(state),
   channels: getChannelsSortedByName(state),
+  errorMessage: getChannelsErrorMessage(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -14,7 +14,31 @@ export const generateJwt = (code) => {
       access_code: code,
     })
   });
-  return fetch(request).then(response => response.json());
+  return fetch(request)
+    .then(response => {
+      if (response.ok) {
+        return response.json().then(json => ({ response: json }));
+      }
+
+      const { status } = response;
+      if (status === 400) {
+        return { error: {
+          status,
+          message: 'Missing access code'
+        }};
+      } else if (status === 401) {
+        return { error: {
+          status,
+          message: 'Invalid access code'
+        }};
+      } else {
+        // TODO: notify bug reporting service
+        return { error: {
+          status,
+          message: 'Something went wrong, please try again later'
+        }};
+      }
+    });
 }
 
 export const getRecommendedChannels = (token) => {
@@ -27,5 +51,16 @@ export const getRecommendedChannels = (token) => {
     method: 'GET',
     headers,
   });
-  return fetch(request).then(response => response.json());
+  return fetch(request)
+    .then(response => {
+      if (response.ok) {
+        return response.json().then(json => ({ response: json }));
+      } else {
+        // TODO: notify bug reporting service
+        return { error: {
+          status: response.status,
+          message: 'Something went wrong, please try again later'
+        }}
+      }
+    });
 }

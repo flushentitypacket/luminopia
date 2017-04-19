@@ -3,27 +3,42 @@ import types from './types';
 
 const noopReducer = (state = {}) => state;
 
-const login = (state = {}, action) => {
-  switch (action.type) {
+const loginInitialState = {
+  token: null,
+  errorMessage: null,
+};
+const login = (state = loginInitialState, { type, payload }) => {
+  switch (type) {
     case types.SET_TOKEN:
-      const { payload } = action;
       return {
         ...state,
         token: payload,
+      };
+    case types.SET_FETCH_JWT_ERROR:
+      return {
+        errorMessage: payload,
       };
     default:
       return state;
   }
 };
 
-const channels = (state = [], action) => {
-  switch (action.type) {
+const channelsInitialState = {
+  items: [],
+  errorMessage: null,
+};
+const channels = (state = channelsInitialState, { type, payload }) => {
+  switch (type) {
     case types.ADD_CHANNEL:
-      const { payload } = action;
-      return [
+      return {
         ...state,
-        payload,
-      ];
+        items: [...state.items, payload],
+      };
+    case types.SET_FETCH_CHANNELS_ERROR:
+      return {
+        ...state,
+        errorMessage: payload,
+      };
     default:
       return state;
   }

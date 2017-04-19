@@ -2,14 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchJwt } from '../../store/actions';
+import { getLoginErrorMessage } from '../../store/selectors';
 
 export class Login extends React.Component {
   static propTypes = {
     onSubmit: PropTypes.func,
+    errorMessage: PropTypes.string,
   };
 
   static defaultProps = {
     onSubmit: () => {},
+    errorMessage: null,
   };
 
   state = {
@@ -27,6 +30,7 @@ export class Login extends React.Component {
   };
 
   render = () => {
+    const { errorMessage } = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
@@ -37,12 +41,14 @@ export class Login extends React.Component {
             onChange={this.handleChange}
           />
         </label>
+        {errorMessage && <p>{errorMessage}</p>}
       </form>
     );
   };
 }
 
 const mapStateToProps = (state) => ({
+  errorMessage: getLoginErrorMessage(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

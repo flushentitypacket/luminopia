@@ -12,6 +12,15 @@ export const setToken = (token) => {
   };
 }
 
+export const setFetchJwtError = (errorMessage) => {
+  return {
+    type: types.SET_FETCH_JWT_ERROR,
+    payload: errorMessage,
+  };
+}
+
+export const resetFetchJwtError = () => setFetchJwtError(null);
+
 export const fetchChannels = (token) => ({
   type: types.FETCH_CHANNELS,
   payload: token,
@@ -21,3 +30,12 @@ export const addChannel = ({ name, videoUris }) => ({
   type: types.ADD_CHANNEL,
   payload: { name, videoUris },
 });
+
+export const setFetchChannelsError = (errorMessage) => {
+  return {
+    type: types.SET_FETCH_CHANNELS_ERROR,
+    payload: errorMessage,
+  }
+}
+
+export const resetFetchChannelsError = () => setFetchChannelsError(null);
