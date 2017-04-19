@@ -3,7 +3,7 @@ import types from './types';
 
 const noopReducer = (state = {}) => state;
 
-const tokenReducer = (state = {}, action) => {
+const login = (state = {}, action) => {
   switch (action.type) {
     case types.SET_TOKEN:
       const { payload } = action;
@@ -18,5 +18,5 @@ const tokenReducer = (state = {}, action) => {
 
 export default combineReducers({
   noopReducer,
-  tokenReducer,
+  login,
 });

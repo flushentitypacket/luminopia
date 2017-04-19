@@ -6,9 +6,13 @@ export const fetchJwt = (code) => ({
 });
 
 export const setToken = (token) => {
-  console.log('inside setToken', token);
   return {
     type: types.SET_TOKEN,
     payload: token,
   };
 }
+
+export const fetchChannels = (token) => ({
+  type: types.FETCH_CHANNELS,
+  payload: token,
+});
