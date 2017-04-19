@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { fetchJwt } from '../store/actions';
 
 export class Login extends React.Component {
   static propTypes = {
@@ -45,6 +46,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  onSubmit: ({ code }) => dispatch(fetchJwt(code)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
