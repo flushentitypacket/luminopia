@@ -1,10 +1,12 @@
-import { takeLatest } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
+import { setToken } from './actions';
 import types from './types';
 import { generateJwt } from '../lib/api';
 
-function* fetchJwt({ payload }) {
-  console.log('fetching jwt with code', payload);
+export function* fetchJwt({ payload }) {
+  const response = yield call(generateJwt, payload);
+  const { token } = response;
+  yield put(setToken(token));
 }
 
 function* sagas() {
