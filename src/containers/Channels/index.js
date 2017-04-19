@@ -40,16 +40,11 @@ export class Channels extends React.Component {
             name: c.name,
             videoUris: c.videoUris
           }))}
-          filterFn={(items, filterValue) =>
-            items.filter(item =>
-              item.name.toUpperCase().includes(filterValue.toUpperCase())
-            )
-          }
         >
-          {items => items.map(item => {
+          {item => {
             const { key, ...props } = item;
             return <Channel key={key} {...props} />;
-          })}
+          }}
         </FilterList>
       </div>
     );

@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 
 export default class FilterList extends React.Component {
   static propTypes = {
-    items: PropTypes.any.isRequired,
+    items: PropTypes.arrayOf(PropTypes.any).isRequired,
     filterFn: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired,
   };
+
+  static defaultProps = {
+    items: [],
+    filterFn: (item, filterValue) =>
+      item.name.toUpperCase().includes(filterValue.toUpperCase()),
+  }
 
   state = {
     filterValue: '',
@@ -17,7 +23,9 @@ export default class FilterList extends React.Component {
   }
 
   filter = (items) => {
-    return this.props.filterFn(items, this.state.filterValue);
+    const { filterFn } = this.props;
+    const { filterValue } = this.state;
+    return items.filter(item => filterFn(item, filterValue));
   }
 
   render = () => {
@@ -29,7 +37,7 @@ export default class FilterList extends React.Component {
           value={this.state.filterValue}
           onChange={this.handleChangeFilterValue}
         />
-        {children(this.filter(items))}
+        {this.filter(items).map(item => children(item))}
       </div>
     )
   };
