@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getToken } from '../../store/selectors';
+import { getToken, getChannels } from '../../store/selectors';
 import { fetchChannels } from '../../store/actions';
 
 export class Channels extends React.Component {
@@ -32,6 +32,7 @@ export class Channels extends React.Component {
     return (
       <div>
         HEYYYYYYYYYYYY
+        {JSON.stringify(this.props.channels)}
       </div>
     );
   };
@@ -39,6 +40,7 @@ export class Channels extends React.Component {
 
 const mapStateToProps = (state) => ({
   token: getToken(state),
+  channels: getChannels(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

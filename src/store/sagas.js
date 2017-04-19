@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { setToken } from './actions';
+import { setToken, addChannel } from './actions';
 import types from './types';
 import { generateJwt, getRecommendedChannels } from '../lib/api';
 
@@ -11,6 +11,10 @@ export function* fetchJwt({ payload }) {
 
 export function* fetchChannels({ payload }) {
   const response = yield call(getRecommendedChannels, payload);
+  const channels = Object.keys(response)
+    .map(k => response[k])
+    .map(c => ({ name: c.name, videoUris: c.video_uris }));
+  yield channels.map(c => put(addChannel(c)));
 }
 
 function* sagas() {

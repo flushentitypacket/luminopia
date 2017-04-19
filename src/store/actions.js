@@ -16,3 +16,8 @@ export const fetchChannels = (token) => ({
   type: types.FETCH_CHANNELS,
   payload: token,
 });
+
+export const addChannel = ({ name, videoUris }) => ({
+  type: types.ADD_CHANNEL,
+  payload: { name, videoUris },
+});

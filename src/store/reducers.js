@@ -16,7 +16,21 @@ const login = (state = {}, action) => {
   }
 };
 
+const channels = (state = [], action) => {
+  switch (action.type) {
+    case types.ADD_CHANNEL:
+      const { payload } = action;
+      return [
+        ...state,
+        payload,
+      ];
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   noopReducer,
   login,
+  channels,
 });
