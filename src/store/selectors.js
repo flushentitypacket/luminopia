@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 
 export const getToken = state => state.login.token;
 export const getLoginErrorMessage = state => state.login.errorMessage;
+export const getLoginIsWaiting = state => state.login.isWaiting;
+
 export const getChannels = state => state.channels.items;
 export const getChannelsSortedByName = createSelector(
   getChannels,

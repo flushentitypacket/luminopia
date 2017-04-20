@@ -6,6 +6,7 @@ const noopReducer = (state = {}) => state;
 const loginInitialState = {
   token: null,
   errorMessage: null,
+  isWaiting: false,
 };
 const login = (state = loginInitialState, { type, payload }) => {
   switch (type) {
@@ -16,7 +17,13 @@ const login = (state = loginInitialState, { type, payload }) => {
       };
     case types.SET_FETCH_JWT_ERROR:
       return {
+        ...state,
         errorMessage: payload,
+      };
+    case types.SET_LOGIN_IS_WAITING:
+      return {
+        ...state,
+        isWaiting: payload,
       };
     default:
       return state;

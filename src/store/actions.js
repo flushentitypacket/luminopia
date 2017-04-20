@@ -19,6 +19,19 @@ export const setFetchJwtError = (errorMessage) => {
   };
 }
 
+export const setLoginIsWaiting = () => {
+  return {
+    type: types.SET_LOGIN_IS_WAITING,
+    payload: true,
+  };
+}
+export const resetLoginIsWaiting = () => {
+  return {
+    type: types.SET_LOGIN_IS_WAITING,
+    payload: false,
+  };
+}
+
 export const resetFetchJwtError = () => setFetchJwtError(null);
 
 export const fetchChannels = (token) => ({

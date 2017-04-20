@@ -3,6 +3,8 @@ import {
   setToken,
   setFetchJwtError,
   resetFetchJwtError,
+  setLoginIsWaiting,
+  resetLoginIsWaiting,
   addChannel,
   setFetchChannelsError,
   resetFetchChannelsError,
@@ -11,6 +13,7 @@ import types from './types';
 import { generateJwt, getRecommendedChannels } from '../lib/api';
 
 export function* fetchJwt({ payload }) {
+  yield put(setLoginIsWaiting());
   const { response, error } = yield call(generateJwt, payload);
   if (response) {
     const { token } = response;
@@ -22,6 +25,7 @@ export function* fetchJwt({ payload }) {
     const { message } = error;
     yield put(setFetchJwtError(message));
   }
+  yield put(resetLoginIsWaiting());
 }
 
 export function* fetchChannels({ payload }) {

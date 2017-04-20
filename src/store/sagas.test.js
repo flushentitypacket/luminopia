@@ -4,6 +4,8 @@ import {
   setToken,
   setFetchJwtError,
   resetFetchJwtError,
+  setLoginIsWaiting,
+  resetLoginIsWaiting,
   addChannel,
   setFetchChannelsError,
   resetFetchChannelsError,
@@ -11,27 +13,32 @@ import {
 import { generateJwt, getRecommendedChannels } from '../lib/api';
 
 describe('fetchJwt', () => {
-  it('requests jwt from api and sets jwt and resets error', () => {
+  it('sets waiting, requests jwt from api, sets jwt, resets error', () => {
     const code = 'gummybearsaredelicious';
     const token = 'skittlesaretoo';
     const response = { token };
     const gen = fetchJwt({ payload: code });
+    expect(gen.next().value).toEqual(put(setLoginIsWaiting()));
     expect(gen.next().value).toEqual(call(generateJwt, code));
     expect(gen.next({ response }).value).toEqual([
       put(resetFetchJwtError()),
       put(setToken(token)),
     ]);
+    expect(gen.next().value).toEqual(put(resetLoginIsWaiting()));
     expect(gen.next().done).toBeTruthy();
   });
 
   describe('api req results in error', () => {
-    it('requests jwt and sets error message', () => {
+    it('sets waiting, requests jwt, sets error message, resets waiting', () => {
       const code = 'gummybearsaredelicious';
       const gen = fetchJwt({ payload: code });
+      expect(gen.next().value).toEqual(put(setLoginIsWaiting()));
       expect(gen.next().value).toEqual(call(generateJwt, code));
       const error = { message: 'OH NO EVERYTHING IS BURNING' };
       expect(gen.next({ error }).value)
         .toEqual(put(setFetchJwtError(error.message)));
+      expect(gen.next().value).toEqual(put(resetLoginIsWaiting()));
+      expect(gen.next().done).toBeTruthy();
     });
   })
 })

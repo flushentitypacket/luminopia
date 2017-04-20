@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchJwt } from '../../store/actions';
-import { getLoginErrorMessage } from '../../store/selectors';
+import { getLoginErrorMessage, getLoginIsWaiting } from '../../store/selectors';
 
 export class Login extends React.Component {
   static propTypes = {
@@ -30,7 +30,7 @@ export class Login extends React.Component {
   };
 
   render = () => {
-    const { errorMessage } = this.props;
+    const { errorMessage, isWaiting } = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
@@ -42,6 +42,7 @@ export class Login extends React.Component {
           />
         </label>
         {errorMessage && <p>{errorMessage}</p>}
+        {isWaiting && <p>waiting!!!!!!!!!!!!</p>}
       </form>
     );
   };
@@ -49,6 +50,7 @@ export class Login extends React.Component {
 
 const mapStateToProps = (state) => ({
   errorMessage: getLoginErrorMessage(state),
+  isWaiting: getLoginIsWaiting(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
