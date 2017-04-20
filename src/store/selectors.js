@@ -20,3 +20,4 @@ export const getChannelsSortedByName = createSelector(
   }),
 )
 export const getChannelsErrorMessage = state => state.channels.errorMessage;
+export const getChannelsIsWaiting = state => state.channels.isWaiting;

@@ -9,6 +9,8 @@ import {
   addChannel,
   setFetchChannelsError,
   resetFetchChannelsError,
+  setChannelsIsWaiting,
+  resetChannelsIsWaiting,
 } from './actions';
 import { generateJwt, getRecommendedChannels } from '../lib/api';
 
@@ -44,10 +46,11 @@ describe('fetchJwt', () => {
 })
 
 describe('fetchChannels', () => {
-  it('requests channels from api and adds them to state', () => {
+  it('sets waiting, requests channels from api, adds them to state, resets waiting', () => {
     const token = 'whataboutsteaktho';
     const action = { payload: token };
     const gen = fetchChannels(action);
+    expect(gen.next().value).toEqual(put(setChannelsIsWaiting()));
     expect(gen.next().value).toEqual(call(getRecommendedChannels, token));
 
     const videoUris = ['https://example.com'];
@@ -63,17 +66,22 @@ describe('fetchChannels', () => {
       put(resetFetchChannelsError()),
       put(addChannel(channel)),
     ]);
+    expect(gen.next().value).toEqual(put(resetChannelsIsWaiting()));
+    expect(gen.next().done).toBeTruthy();
   });
 
   describe('api req results in error', () => {
-    it('requests channels and sets error message', () => {
+    it('sets waiting, requests channels, sets error message, resets waiting', () => {
       const token = 'datchicken';
       const action = { payload: token };
       const gen = fetchChannels(action);
+      expect(gen.next().value).toEqual(put(setChannelsIsWaiting()));
       expect(gen.next().value).toEqual(call(getRecommendedChannels, token));
       const error = { message: 'OH NO EVERYTHING IS FLOODED' };
       expect(gen.next({ error }).value)
         .toEqual(put(setFetchChannelsError(error.message)));
+      expect(gen.next().value).toEqual(put(resetChannelsIsWaiting()));
+      expect(gen.next().done).toBeTruthy();
     });
   })
 });

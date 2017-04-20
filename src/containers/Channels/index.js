@@ -6,7 +6,8 @@ import Channel from '../../components/Channel';
 import {
   getToken,
   getChannelsSortedByName,
-  getChannelsErrorMessage
+  getChannelsErrorMessage,
+  getChannelsIsWaiting,
 } from '../../store/selectors';
 import { fetchChannels } from '../../store/actions';
 
@@ -38,9 +39,10 @@ export class Channels extends React.Component {
   };
 
   render = () => {
-    const { channels, errorMessage } = this.props;
+    const { isWaiting, channels, errorMessage } = this.props;
     return (
       <div>
+        {isWaiting && <p>waiting!!!!!!!!!!!!</p>}
         <FilterList
           items={channels.map((c, idx) => ({
             key: idx,
@@ -63,6 +65,7 @@ const mapStateToProps = (state) => ({
   token: getToken(state),
   channels: getChannelsSortedByName(state),
   errorMessage: getChannelsErrorMessage(state),
+  isWaiting: getChannelsIsWaiting(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

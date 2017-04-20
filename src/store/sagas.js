@@ -8,6 +8,8 @@ import {
   addChannel,
   setFetchChannelsError,
   resetFetchChannelsError,
+  setChannelsIsWaiting,
+  resetChannelsIsWaiting,
 } from './actions';
 import types from './types';
 import { generateJwt, getRecommendedChannels } from '../lib/api';
@@ -29,6 +31,7 @@ export function* fetchJwt({ payload }) {
 }
 
 export function* fetchChannels({ payload }) {
+  yield put(setChannelsIsWaiting());
   const { response, error } = yield call(getRecommendedChannels, payload);
   if (response) {
     const channels = Object.keys(response)
@@ -42,6 +45,7 @@ export function* fetchChannels({ payload }) {
     const { message } = error;
     yield put(setFetchChannelsError(message));
   }
+  yield put(resetChannelsIsWaiting());
 }
 
 function* sagas() {

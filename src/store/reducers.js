@@ -46,6 +46,11 @@ const channels = (state = channelsInitialState, { type, payload }) => {
         ...state,
         errorMessage: payload,
       };
+    case types.SET_CHANNELS_IS_WAITING:
+      return {
+        ...state,
+        isWaiting: payload,
+      };
     default:
       return state;
   }

@@ -52,3 +52,17 @@ export const setFetchChannelsError = (errorMessage) => {
 }
 
 export const resetFetchChannelsError = () => setFetchChannelsError(null);
+
+
+export const setChannelsIsWaiting = () => {
+  return {
+    type: types.SET_CHANNELS_IS_WAITING,
+    payload: true,
+  };
+}
+export const resetChannelsIsWaiting = () => {
+  return {
+    type: types.SET_CHANNELS_IS_WAITING,
+    payload: false,
+  };
+}
