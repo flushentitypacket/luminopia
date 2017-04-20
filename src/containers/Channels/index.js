@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FilterList from '../../components/FilterList';
 import Channel from '../../components/Channel';
-import {
-  getToken,
-  getChannelsSortedByName,
-  getChannelsErrorMessage,
-  getChannelsIsWaiting,
-} from '../../store/selectors';
+import { getToken } from '../../store/selectors';
+import { channelsSelectors } from '../../store/selectors';
 import { fetchChannels } from '../../store/actions';
 
 export class Channels extends React.Component {
@@ -60,6 +56,12 @@ export class Channels extends React.Component {
     );
   };
 }
+
+const {
+  getChannelsSortedByName,
+  getChannelsErrorMessage,
+  getChannelsIsWaiting,
+} = channelsSelectors;
 
 const mapStateToProps = (state) => ({
   token: getToken(state),

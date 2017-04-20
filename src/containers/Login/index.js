@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchJwt } from '../../store/actions';
-import { getLoginErrorMessage, getLoginIsWaiting } from '../../store/selectors';
+import { loginSelectors } from '../../store/selectors';
 
 export class Login extends React.Component {
   static propTypes = {
@@ -47,6 +47,8 @@ export class Login extends React.Component {
     );
   };
 }
+
+const { getLoginErrorMessage, getLoginIsWaiting } = loginSelectors;
 
 const mapStateToProps = (state) => ({
   errorMessage: getLoginErrorMessage(state),
