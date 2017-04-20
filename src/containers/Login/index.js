@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchJwt } from '../../store/actions';
+import { loginActions } from '../../store/actions';
 import { loginSelectors } from '../../store/selectors';
 
 export class Login extends React.Component {
@@ -54,6 +54,8 @@ const mapStateToProps = (state) => ({
   errorMessage: getLoginErrorMessage(state),
   isWaiting: getLoginIsWaiting(state),
 })
+
+const { fetchJwt } = loginActions;
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: ({ code }) => dispatch(fetchJwt(code)),

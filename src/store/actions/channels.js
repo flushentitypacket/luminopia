@@ -1,38 +1,4 @@
-import types from './types';
-
-export const fetchJwt = (code) => ({
-  type: types.FETCH_JWT,
-  payload: code,
-});
-
-export const setToken = (token) => {
-  return {
-    type: types.SET_TOKEN,
-    payload: token,
-  };
-}
-
-export const setFetchJwtError = (errorMessage) => {
-  return {
-    type: types.SET_FETCH_JWT_ERROR,
-    payload: errorMessage,
-  };
-}
-
-export const setLoginIsWaiting = () => {
-  return {
-    type: types.SET_LOGIN_IS_WAITING,
-    payload: true,
-  };
-}
-export const resetLoginIsWaiting = () => {
-  return {
-    type: types.SET_LOGIN_IS_WAITING,
-    payload: false,
-  };
-}
-
-export const resetFetchJwtError = () => setFetchJwtError(null);
+import types from '../types';
 
 export const fetchChannels = (token) => ({
   type: types.FETCH_CHANNELS,
@@ -52,7 +18,6 @@ export const setFetchChannelsError = (errorMessage) => {
 }
 
 export const resetFetchChannelsError = () => setFetchChannelsError(null);
-
 
 export const setChannelsIsWaiting = () => {
   return {

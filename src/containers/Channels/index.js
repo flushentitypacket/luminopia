@@ -5,7 +5,7 @@ import FilterList from '../../components/FilterList';
 import Channel from '../../components/Channel';
 import { getToken } from '../../store/selectors';
 import { channelsSelectors } from '../../store/selectors';
-import { fetchChannels } from '../../store/actions';
+import { channelsActions } from '../../store/actions';
 
 export class Channels extends React.Component {
   static propTypes = {
@@ -69,6 +69,8 @@ const mapStateToProps = (state) => ({
   errorMessage: getChannelsErrorMessage(state),
   isWaiting: getChannelsIsWaiting(state),
 })
+
+const { fetchChannels } = channelsActions;
 
 const mapDispatchToProps = (dispatch) => ({
   fetchChannels: (token) => dispatch(fetchChannels(token)),
