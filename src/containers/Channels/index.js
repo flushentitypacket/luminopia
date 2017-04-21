@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Spinner from '../../components/Spinner';
 import FilterList from '../../components/FilterList';
 import Channel from '../../components/Channel';
 import { getToken } from '../../store/selectors';
@@ -41,7 +42,6 @@ export class Channels extends React.Component {
     const { isWaiting, channels, errorMessage } = this.props;
     return (
       <div>
-        {isWaiting && <p>waiting!!!!!!!!!!!!</p>}
         <p>Choose a channel from our exciting selection of educational and entertaining content!</p>
 
         <FilterList
@@ -60,7 +60,8 @@ export class Channels extends React.Component {
             return <Channel key={key} {...props} />;
           }}
         </FilterList>
-        {errorMessage && <p>{errorMessage}</p>}
+        {isWaiting && <Spinner />}
+        {errorMessage && <p className="ChannelsErrorMessage">{errorMessage}</p>}
       </div>
     );
   };

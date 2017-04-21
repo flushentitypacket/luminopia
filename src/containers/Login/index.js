@@ -1,6 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from '../../components/Spinner';
 import { loginActions } from '../../store/actions';
 import { loginSelectors } from '../../store/selectors';
 import './styles.css';
@@ -44,8 +45,8 @@ export class Login extends React.Component {
             value={this.state.code}
             onChange={this.handleChange}
           />
-          {errorMessage && <p className="errorMessage">{errorMessage}</p>}
-          {isWaiting && <p>waiting!!!!!!!!!!!!</p>}
+          {errorMessage && <p className="LoginErrorMessage">{errorMessage}</p>}
+          {isWaiting && <Spinner />}
         </form>
       </div>
     );

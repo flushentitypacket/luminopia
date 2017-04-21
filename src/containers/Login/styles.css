@@ -6,7 +6,7 @@
   padding: 0px 4px;
 }
 
-.LoginContainer .errorMessage {
+.LoginErrorMessage {
   color: #d83529;
   font-size: 12px;
   margin: 6px 0;
