@@ -9,12 +9,14 @@ import { channelsActions } from '../../store/actions';
 
 export class Channels extends React.Component {
   static propTypes = {
+    channels: PropTypes.arrayOf(PropTypes.object),
     token: PropTypes.string,
     fetchChannels: PropTypes.func,
     errorMessage: PropTypes.string,
   };
 
   static defaultProps = {
+    channels: [],
     token: null,
     fetchChannels: () => {},
     errorMessage: null,
@@ -45,6 +47,9 @@ export class Channels extends React.Component {
             name: c.name,
             videoUris: c.videoUris
           }))}
+          filterFn={(item, filterValue) =>
+            item.name.toUpperCase().includes(filterValue.toUpperCase())
+          }
         >
           {item => {
             const { key, ...props } = item;

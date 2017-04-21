@@ -10,8 +10,7 @@ export default class FilterList extends React.Component {
 
   static defaultProps = {
     items: [],
-    filterFn: (item, filterValue) =>
-      item.name.toUpperCase().includes(filterValue.toUpperCase()),
+    filterFn: (item, filterValue) => true,
   }
 
   state = {

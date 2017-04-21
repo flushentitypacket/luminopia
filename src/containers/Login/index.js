@@ -8,11 +8,13 @@ export class Login extends React.Component {
   static propTypes = {
     onSubmit: PropTypes.func,
     errorMessage: PropTypes.string,
+    isWaiting: PropTypes.bool,
   };
 
   static defaultProps = {
     onSubmit: () => {},
     errorMessage: null,
+    isWaiting: false,
   };
 
   state = {
