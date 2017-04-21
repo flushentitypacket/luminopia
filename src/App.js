@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Logo from './components/Logo';
 import Login from './containers/Login';
 import Channels from './containers/Channels';
 import { getToken } from './store/selectors';
@@ -18,9 +19,14 @@ export class App extends Component {
   render() {
     const { token } = this.props;
     return (
-      <div>
-        {!token && <Login />}
-        {token && <Channels token={token} />}
+      <div className="AppContainer">
+        <div className="AppHeaderContainer">
+          <Logo />
+        </div>
+        <div className="AppBodyContainer">
+          {!token && <Login />}
+          {token && <Channels token={token} />}
+        </div>
       </div>
     );
   }

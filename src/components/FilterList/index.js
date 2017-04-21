@@ -6,11 +6,13 @@ export default class FilterList extends React.Component {
     items: PropTypes.arrayOf(PropTypes.any).isRequired,
     filterFn: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired,
+    label: PropTypes.string,
   };
 
   static defaultProps = {
     items: [],
     filterFn: (item, filterValue) => true,
+    label: null,
   }
 
   state = {
@@ -28,14 +30,17 @@ export default class FilterList extends React.Component {
   }
 
   render = () => {
-    const { children, items } = this.props;
+    const { label, children, items } = this.props;
     return (
       <div>
-        <input
-          type="text"
-          value={this.state.filterValue}
-          onChange={this.handleChangeFilterValue}
-        />
+        <label>
+          {label}
+          <input
+            type="text"
+            value={this.state.filterValue}
+            onChange={this.handleChangeFilterValue}
+          />
+        </label>
         {this.filter(items).map(item => children(item))}
       </div>
     )

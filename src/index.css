@@ -1,5 +1,9 @@
+@import "https://overpass-30e2.kxcdn.com/overpass.css";
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  color: #424b54;
+  background-color: #ffffff;
 }

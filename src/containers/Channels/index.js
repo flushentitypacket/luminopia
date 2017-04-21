@@ -6,6 +6,7 @@ import Channel from '../../components/Channel';
 import { getToken } from '../../store/selectors';
 import { channelsSelectors } from '../../store/selectors';
 import { channelsActions } from '../../store/actions';
+import './styles.css';
 
 export class Channels extends React.Component {
   static propTypes = {
@@ -41,7 +42,10 @@ export class Channels extends React.Component {
     return (
       <div>
         {isWaiting && <p>waiting!!!!!!!!!!!!</p>}
+        <p>Choose a channel from our exciting selection of educational and entertaining content!</p>
+
         <FilterList
+          label="Filter by name: "
           items={channels.map((c, idx) => ({
             key: idx,
             name: c.name,

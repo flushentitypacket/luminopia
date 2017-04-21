@@ -1,0 +1,13 @@
+.LoginContainer input {
+  width: 200px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: extra-light;
+  padding: 0px 4px;
+}
+
+.LoginContainer .errorMessage {
+  color: #d83529;
+  font-size: 12px;
+  margin: 6px 0;
+}

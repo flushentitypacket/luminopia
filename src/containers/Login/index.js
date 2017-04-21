@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginActions } from '../../store/actions';
 import { loginSelectors } from '../../store/selectors';
+import './styles.css';
 
 export class Login extends React.Component {
   static propTypes = {
@@ -34,18 +35,19 @@ export class Login extends React.Component {
   render = () => {
     const { errorMessage, isWaiting } = this.props;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          code
+      <div className="LoginContainer">
+        <p>Please enter your access code.</p>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
+            placeholder="code"
             value={this.state.code}
             onChange={this.handleChange}
           />
-        </label>
-        {errorMessage && <p>{errorMessage}</p>}
-        {isWaiting && <p>waiting!!!!!!!!!!!!</p>}
-      </form>
+          {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+          {isWaiting && <p>waiting!!!!!!!!!!!!</p>}
+        </form>
+      </div>
     );
   };
 }

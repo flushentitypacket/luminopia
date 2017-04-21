@@ -1,0 +1,18 @@
+.ChannelContainer {
+  margin: 20px 0px;
+}
+
+.ChannelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+
+.ChannelHeaderTitle {
+  margin: 0;
+}
+
+.ChannelDescription {
+  margin: 0;
+}
